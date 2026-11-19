@@ -1,0 +1,9 @@
+# MailRecon authorised scope
+# One domain, *.domain, IP address or CIDR range per line.
+# Only add a target if you OWN it or have WRITTEN permission to test it.
+# The crawler can only reach hosts listed here.
+
+localhost
+127.0.0.1
+::1
+example.com
