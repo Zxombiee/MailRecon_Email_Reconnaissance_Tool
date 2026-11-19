@@ -118,6 +118,31 @@ mailrecon/
 ## Ethical considerations
 
 <!-- TODO (Member 4): each safeguard and why it was chosen, including masking and PDPA. -->
+1. Ethical Considerations
+
+MailRecon is created for educational use and approved security investigations. Users need to secure the appropriate authorization from the respective domain owner prior to performing reconnaissance activities.
+
+The tool is intended to gather publicly accessible email addresses and domain details without trying to access private email accounts, send messages, or engage in phishing activities.
+
+Users must ensure their actions adhere to relevant laws and regulations, including the Computer Crimes Act 1997 and the Personal Data Protection Act 2010 (PDPA), when applicable.
+
+
+2. Privacy Protection and Data Handling
+
+MailRecon implements various strategies to reduce unnecessary exposure of gathered data:
+
+-Default Email Masking:  Email addresses are automatically hidden in produced reports. For instance, john.smith@example.com appears as j***@example.com.
+
+Full Email Display: The --show-full option permits authorized users to reveal entire email addresses when required.
+
+Local Report Storage: Generated TXT and JSON reports are kept locally in the specified output folder.
+
+Timestamped Reports: Each file is given a timestamped name to avoid overwriting current reports.
+
+Duplicate Removal: Duplicate email addresses are deleted to ensure structured and uniform reporting.
+
+Users must limit access to created reports, refrain from unnecessary sharing of collected data, and remove stored information once it is no longer needed.
+
 
 ## Rules of Engagement (RoE)
 
