@@ -152,6 +152,23 @@ Users must limit access to created reports, refrain from unnecessary sharing of 
 ## Responsible disclosure
 
 <!-- TODO (Member 4): who to report to, when, and how. -->
+3. Responsible Disclosure
+
+When MailRecon detects publicly available information or possible security issues, users must manage the results with care.The subsequent methods are advised:
+
+The following practices are recommended:
+
+1.Report relevant findings to the website owner or authorised security contact.
+
+2.Provide clear and accurate information about the identified findings.
+
+3.Avoid publicly disclosing sensitive information without permission.
+
+4.Do not use collected email addresses for phishing, spam, harassment or other malicious activities.
+
+5.Respect the privacy and confidentiality of individuals whose information appears in the reports.
+
+Responsible disclosure assists organizations in recognizing potential security issues while reducing unnecessary risks to impacted individuals.
 
 ## Legal disclaimer
 
