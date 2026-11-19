@@ -14,11 +14,53 @@ MailRecon is a Python command-line tool for the reconnaissance stage of an autho
 
 ## Description
 
-<!-- TODO (Member 2): describe the tool, the problem it solves and each module. -->
+MailRecon is an email reconnaissance tool. It crawls a website that we have permission to test, collects the email addresses published on it, and checks the domain's email security records.
+
+Most phishing attacks start with a list of email addresses. If a company puts staff emails on its website, an attacker can collect them in a few minutes. MailRecon shows the company which addresses are exposed. The company can then remove them, replace them with a contact form or a shared mailbox, and use the results in phishing awareness training.
+
+The tool only reads public web pages and public DNS records. It does not log in, fill in forms, send emails or connect to mail servers.
+
+| Module | File | What it does |
+|---|---|---|
+| Safety controls | `safety.py`, `http.py` | Shows the legal disclaimer, checks the scope, asks again before scanning a remote target, limits the request rate and handles Ctrl+C. Every request goes through one fetcher that checks the scope again. |
+| Web crawler | `crawler.py` | Starts at the target page and follows its links. Obeys `robots.txt`, follows redirects that stay in scope, skips files like images and PDFs, never visits the same page twice and stops at `--max-pages`. Links to other websites are not visited, only listed in the report. |
+| Email extractor | `extractor.py` | Uses BeautifulSoup to read the page. Finds normal emails, emails inside `mailto:` links, HTML-encoded emails (`&#64;`) and hidden ones like `ali [at] example [dot] com`. Skips image names that look like emails, such as `logo@2x.png`. |
+| Pattern analyzer | `patterns.py` | Works out how the company forms its email addresses, for example `{first}.{last}`, and gives a confidence score. |
+| Domain information | `domain_info.py` | Looks up the MX, SPF and DMARC records to see how easy it would be to fake an email from the domain. |
+| Report generator | `report.py` | Saves a TXT and JSON report in a local folder named with the date and time. Emails are masked by default (`j***@example.com`). |
+
+## Attack category
+
+MailRecon is in **Category 6: Offensive OSINT**.
+
+OSINT (Open-Source Intelligence) means gathering information from public sources, such as websites and DNS records, without breaking into anything. Offensive OSINT is when that information is gathered the way an attacker would, to plan an attack. In a penetration test, we do this to show the organisation what an attacker could find.
+
+MailRecon fits this category because:
+
+- It only uses public information: web pages anyone can open and public DNS records.
+- It does not log in, guess passwords, exploit bugs or send emails.
+- What it collects (email addresses, the naming pattern and how easy the domain is to spoof) is exactly what an attacker needs before a phishing attack.
+
+In MITRE ATT&CK, this is the Reconnaissance tactic (TA0043).
 
 ## Attack lifecycle mapping
 
-<!-- TODO (Member 2): table of lifecycle stage -> what MailRecon does -> module. -->
+MailRecon covers the reconnaissance stage. Its results can be used in later stages, but the tool does not carry out those stages.
+
+| Lifecycle stage | What MailRecon does | Module | MITRE ATT&CK |
+|---|---|---|---|
+| 1. Planning and scoping | Reads the allowed targets from `scope.txt` and shows the legal disclaimer. `--dry-run` shows the plan without sending anything. | `safety.py`, `mailrecon.py` | – |
+| 2. Passive reconnaissance | Looks up public DNS records (MX, SPF, DMARC). No requests are sent to the target's website. | `domain_info.py` | T1590.002 Gather Victim Network Information: DNS |
+| 2. Active reconnaissance | Crawls the in-scope website politely (obeys robots.txt, at most 1 request per second, stops at the page limit) and collects the email addresses on it. | `crawler.py`, `extractor.py` | T1594 Search Victim-Owned Websites; T1589.002 Email Addresses |
+| 3. Scanning and enumeration | Works out the email naming pattern, which shows how easily other staff emails could be guessed. | `patterns.py` | T1589.003 Employee Names |
+| 4. Gaining access | Not done by MailRecon. The email list and spoofing check show how likely a phishing attack is to work. A real phishing test would need separate permission. | – | T1566 Phishing (input only) |
+| 5. Reporting | Saves a masked TXT/JSON report with the page where each email was found and the out-of-scope links that were skipped. | `report.py` | – |
+
+```
+Scope & disclaimer ──> Crawl in-scope pages ──> Extract emails ──> Pattern analysis ──┐
+        │                                                                             ├──> Masked report
+        └──────────────> DNS: MX / SPF / DMARC ──> Spoofing assessment ───────────────┘
+```
 
 ## Installation
 
