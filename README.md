@@ -188,8 +188,6 @@ Users must limit access to created reports, refrain from unnecessary sharing of 
 
 ## Rules of Engagement (RoE)
 
-## Rules of Engagement
-
 MailRecon is designed for authorised email reconnaissance and security testing only.
 
 Before using this tool, users must follow these rules:
