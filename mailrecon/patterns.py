@@ -1,3 +1,4 @@
+
 import re
 from collections import Counter
 
@@ -10,25 +11,25 @@ def identify_pattern(email):
 
     local_part = email.rsplit("@", 1)[0].lower()
 
-    # first.last
-    if re.fullmatch(r"[a-z]+\.[a-z]+", local_part):
+    # First initial + last name (e.g. j.smith)
+    if re.fullmatch(r"[a-z]\.[a-z]{2,}", local_part):
+        return "{first_initial}.{last}"
+
+    # First name + last initial (e.g. john.s)
+    elif re.fullmatch(r"[a-z]{2,}\.[a-z]", local_part):
+        return "{first}.{last_initial}"
+
+    # First name + last name (e.g. john.smith)
+    elif re.fullmatch(r"[a-z]{2,}\.[a-z]{2,}", local_part):
         return "{first}.{last}"
 
-    # first_last
+    # First name + last name separated by underscore
     elif re.fullmatch(r"[a-z]+_[a-z]+", local_part):
         return "{first}_{last}"
 
-    # first-last
+    # First name + last name separated by hyphen
     elif re.fullmatch(r"[a-z]+-[a-z]+", local_part):
         return "{first}-{last}"
-
-    # first initial + last name
-    elif re.fullmatch(r"[a-z]\.[a-z]+", local_part):
-        return "{first_initial}.{last}"
-
-    # first name + last initial
-    elif re.fullmatch(r"[a-z]+\.[a-z]", local_part):
-        return "{first}.{last_initial}"
 
     return None
 
@@ -74,3 +75,4 @@ def analyse(emails, domain):
         "confidence": round(confidence, 2),
         "samples": count
     }
+
