@@ -188,8 +188,36 @@ Users must limit access to created reports, refrain from unnecessary sharing of 
 
 ## Rules of Engagement (RoE)
 
-<!-- TODO (Member 3): authorised scope, time windows, permitted techniques,
-     prohibited actions, emergency stop procedure. -->
+## Rules of Engagement
+
+MailRecon is designed for authorised email reconnaissance and security testing only.
+
+Before using this tool, users must follow these rules:
+
+1. Only scan websites and domains that you own or have received written permission to test.
+2. Do not scan websites belonging to other individuals or organisations without permission.
+3. Do not use MailRecon to collect email addresses for spam, phishing, harassment or other malicious activities.
+4. Keep scanning within the authorised scope defined in the scope configuration file.
+5. Use reasonable scanning limits and avoid sending excessive requests to the target website.
+6. Handle all collected email addresses and scan reports responsibly.
+7. Do not publish or share collected information without proper authorisation.
+
+By using MailRecon, users agree to follow these rules and applicable laws, including the Computer Crimes Act 1997 and Personal Data Protection Act 2010 (PDPA) of Malaysia, where applicable.
+
+## Limitations
+
+MailRecon has the following limitations:
+
+1. Email Discovery: The tool can only identify email addresses that are publicly visible on accessible web pages. It cannot discover private or hidden email addresses.
+2. Website Access: Some websites may block automated requests or require JavaScript rendering, which may affect email collection.
+3. Pattern Analysis: The pattern analyzer only recognises supported email formats, such as `first.last` and `first_last`. Other formats may be classified as unknown.
+4. Domain Information: MX, SPF and DMARC results depend on publicly available DNS records. Some domains may not have these records.
+5. Localhost and IP Addresses: DNS information gathering is skipped for localhost and IP address targets.
+6. Email Masking: Email addresses are masked in reports by default to help protect personal information.
+7. Scan Scope: MailRecon only scans targets allowed by its authorised scope configuration.
+8. No Guarantee of Accuracy: Results may be incomplete or outdated and should be manually verified before making security decisions.
+
+MailRecon is an educational reconnaissance tool. It is not intended to replace professional security assessments or penetration testing.
 
 ## Responsible disclosure
 
