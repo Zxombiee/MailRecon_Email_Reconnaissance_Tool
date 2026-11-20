@@ -247,7 +247,6 @@ MailRecon is provided for education and authorised security testing only.
 
 Only scan domains you own or have **written** permission to test. Never use the results for spam, phishing or any other unlawful purpose. Similar laws apply in other countries. The authors accept no liability for misuse or damage caused by this tool. By using MailRecon you confirm that you are authorised to scan every target you choose.
 
-## Limitations
 
 <!-- TODO (Member 3): what MailRecon cannot detect. -->
 
